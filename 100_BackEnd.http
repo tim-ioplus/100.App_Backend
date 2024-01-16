@@ -1,0 +1,6 @@
+@_100_BackEnd_HostAddress = http://localhost:5299
+
+GET {{_100_BackEnd_HostAddress}}/quote/
+Accept: application/json
+
+###
