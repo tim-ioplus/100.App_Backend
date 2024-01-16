@@ -17,8 +17,9 @@ public class QuotesController : ControllerBase
         _quotes = new Quotes_DataMock().Quotes;
     }
 
+    // Get: quotes
     [HttpGet()]
-    public IEnumerable<Quote> Get()
+    public IEnumerable<Quote> List()
     {        
         var quotes = Enumerable.Range(1,5).Select(index => 
             _quotes.ElementAt(Random.Shared.Next(_quotes.Count))
@@ -37,5 +38,13 @@ public class QuotesController : ControllerBase
         Console.WriteLine(quote?.ToString());
         
         return quote;
+    }
+
+    // Post: quotes
+    [HttpPost]
+    public ActionResult<Quote> Post(Quote quote)
+    {
+        Console.WriteLine(quote.ToString());
+        return new JsonResult(quote);
     }
 }
