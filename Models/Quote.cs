@@ -21,3 +21,4 @@ public class Quote
         return this.Id + " - " + this.Text + " - " + this.Author + " - " + this.Image;
     }
 }
+
