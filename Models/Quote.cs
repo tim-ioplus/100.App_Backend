@@ -8,7 +8,7 @@ public class Quote
     public string Author { get; set; }
     public string Image { get; set; }
 
-    public Quote(int id, string text, string author, string image)
+    public Quote(int id, string text="", string author="", string image="")
     {
         this.Id = id;
         this.Text = text;
