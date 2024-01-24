@@ -2,7 +2,7 @@ using _100_BackEnd.Models;
 using Microsoft.AspNetCore.SignalR;
 
 namespace _100_BackEnd.Services;
-public class QuoteService : IQuoteCrudListService, SequenceService {
+public class QuoteService : IQuoteCrudListService, ISequenceService {
     private List<Quote> _quotesRepository;
 
     public QuoteService(bool hydrateWithMockData = true)

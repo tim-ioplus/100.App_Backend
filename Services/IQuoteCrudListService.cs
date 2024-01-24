@@ -6,10 +6,10 @@ public interface IQuoteCrudListService
     public Quote? Read(int quoteId);
     public bool Update(Quote quote);
     public bool Delete(int quoteId);
-    public List<Quote> List(int take=0, int skip=0);
-    
+    public List<Quote> List(int take=0, int skip=0);    
 }
 
-public interface SequenceService
-{    public Quote GetNext(int lastQuoteId);
+public interface ISequenceService
+{    
+    public Quote GetNext(int lastQuoteId);
 }
