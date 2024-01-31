@@ -22,16 +22,31 @@ public class QuotesController : ControllerBase
     }
 
     // Get: quotes
-    [HttpGet()]
+    [HttpGet("{take}/{page}")]
     [ActionName("List")]
-    public IEnumerable<Quote> List()
-    {        
-        var quotes = _quoteService.List();        
+    public IEnumerable<Quote> List(int take = 5, int page = 1)
+    {   
+        if(this.HttpContext.Connection.LocalIpAddress != null) _logger.LogInformation(this.HttpContext.Connection.LocalIpAddress.ToString());     
+        
+        _logger.LogInformation("List - take:" + take + ", page:" + page);
+
+        var quotes = _quoteService.List(take, page);
+        _logger.LogInformation("Controller: QuotesController, Method: List, Parameter: take {0} page {1}, results count {2}", take, page, quotes.Count);       
         quotes.ToList().ForEach(q => _logger.LogInformation(q.ToString()));
         
         return quotes;
     }
 
+    // Get: quotes
+    [HttpGet("{take}")]
+    [ActionName("ListRandom")]
+    public IEnumerable<Quote> ListRandom(int take = 5)
+    {        
+        var quotes = _quoteService.ListRandom(take);        
+        quotes.ToList().ForEach(q => _logger.LogInformation(q.ToString()));
+        
+        return quotes;
+    }
     
     // Get: quotes/next/1
     [HttpGet("{lastQuoteId}")]
@@ -66,7 +81,7 @@ public class QuotesController : ControllerBase
     }
 
     // Delete: quotes/1
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [ActionName("Delete")]
     public ActionResult<bool> Delete(int id)
     {

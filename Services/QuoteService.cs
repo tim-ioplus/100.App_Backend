@@ -23,11 +23,32 @@ public class QuoteService : IQuoteCrudListService, ISequenceService {
         return quote;
     }
 
-    public List<Quote> List(int take = 0, int page = 0)
+    public List<Quote> ListRandom(int take = 5)
     {
-        var quotes = Enumerable.Range(1,5).Select(index => 
+        take = (take <= 0) ? 1 : (take > _quotesRepository.Count) ? _quotesRepository.Count : take;
+
+        var quotes = Enumerable.Range(0,take).Select(index => 
             _quotesRepository.ElementAt(Random.Shared.Next(_quotesRepository.Count))
             );
+        
+        return quotes.ToList();
+    }
+
+    public List<Quote> List(int take = 5, int page = 1)
+    {
+        take = (take <= 0) ? 1 : (take > _quotesRepository.Count) ? _quotesRepository.Count : take;
+        page = (page <= 0) ? 1 : page;
+
+        var quotes = new List<Quote>();
+        
+        for (int i = 0; i < take; i++)
+        {
+            int idx = ((page - 1) * take) + i;
+            if(idx >= _quotesRepository.Count) break;
+
+            var q = _quotesRepository.ElementAt(idx);
+            quotes.Add(q);            
+        }
         
         return quotes.ToList();
     }

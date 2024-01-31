@@ -6,7 +6,8 @@ public interface IQuoteCrudListService
     public Quote? Read(int quoteId);
     public bool Update(Quote quote);
     public bool Delete(int quoteId);
-    public List<Quote> List(int take=0, int skip=0);    
+    public List<Quote> List(int take=5, int page=1);
+    public List<Quote> ListRandom(int take=5);
 }
 
 public interface ISequenceService
